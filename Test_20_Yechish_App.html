@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Ta Test Yechish Platformasi | Interaktiv Sinov Web Sayti</title>
+    <meta name="description" content="20 ta interaktiv test yechish uchun mo'ljallangan zamonaviy desktop web dasturi.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(22, 30, 49, 0.7);
+            --bg-card-hover: rgba(33, 44, 71, 0.85);
+            --border-glow: rgba(99, 102, 241, 0.25);
+            --border-glow-active: rgba(129, 140, 248, 0.6);
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --accent-amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-sub: #cbd5e1;
+            --glass-blur: blur(16px);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* App Container Layout */
+        .app-header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .brand-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .timer-badge {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-glow);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .timer-badge i {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .btn {
+            padding: 0.6rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(51, 65, 85, 0.9);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Main Workspace Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Category Selection Screen */
+        .welcome-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            max-width: 900px;
+            margin: 2rem auto;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary-light);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .welcome-card h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .category-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 1.8rem 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover, .category-card.active {
+            border-color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .category-card.active::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--primary-light);
+            font-size: 1rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .icon-mix { background: rgba(99, 102, 241, 0.2); color: var(--primary-light); }
+        .icon-it { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+        .icon-eng { background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); }
+        .icon-math { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+
+        .category-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: #fff;
+        }
+
+        .category-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Main Quiz Layout Grid */
+        .quiz-workspace {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+            display: none; /* hidden until started */
+        }
+
+        /* Question Box Card */
+        .question-box {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 2.2rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .q-number-badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary-light);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover, .icon-btn.active {
+            color: var(--accent-amber);
+            border-color: var(--accent-amber);
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .q-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        /* Answer Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .option-card:hover {
+            background: rgba(45, 60, 90, 0.7);
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateX(4px);
+        }
+
+        .option-card.selected {
+            background: rgba(99, 102, 241, 0.18);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+        }
+
+        .option-prefix {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            transition: var(--transition);
+        }
+
+        .option-card.selected .option-prefix {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary-light);
+        }
+
+        .option-label {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-main);
+            flex: 1;
+        }
+
+        /* Footer Controls */
+        .q-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Right Sidebar Navigator */
+        .sidebar-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary), var(--accent-cyan));
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        /* 20 Questions Grid Pills */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.65rem;
+        }
+
+        .nav-pill {
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-pill:hover {
+            border-color: var(--primary-light);
+            color: white;
+        }
+
+        .nav-pill.active {
+            border-color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.25);
+            color: white;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-pill.answered {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--accent-emerald);
+        }
+
+        .nav-pill.bookmarked::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent-amber);
+            border-radius: 50%;
+        }
+
+        .legend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Results / Finish Screen */
+        .results-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-summary-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(15,23,42,0.8) 70%);
+            border: 4px solid var(--primary-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem auto;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .result-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin: 2.5rem 0;
+        }
+
+        .stat-box {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Review Section */
+        .review-section {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .review-item {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-item.correct {
+            border-left: 5px solid var(--accent-emerald);
+        }
+
+        .review-item.wrong {
+            border-left: 5px solid var(--accent-rose);
+        }
+
+        .review-q-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+
+        .review-answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+        }
+
+        .ans-badge {
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .ans-user-wrong {
+            background: rgba(244, 63, 94, 0.15);
+            color: var(--accent-rose);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .ans-correct {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .explanation-text {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Canvas Confetti */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .quiz-workspace {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-card {
+                order: -1;
+            }
+            .nav-grid {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .review-answers {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Header Bar -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Testify 20</h1>
+                    <p>Interaktiv 20 Ta Test Platformasi</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="timer-badge" id="timer-box" style="display: none;">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timer-display">20:00</span>
+                </div>
+                <button class="btn btn-secondary" id="sound-toggle-btn" title="Ovoz yoqish/o'chirish">
+                    <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- STEP 1: Welcome & Category Selection -->
+        <section class="welcome-card" id="welcome-screen">
+            <span class="welcome-badge"><i class="fa-solid fa-bolt"></i> 20 Ta Savol Sinov</span>
+            <h2>Bilimingizni Sinab Ko'ring!</h2>
+            <p>Quyidagi yo'nalishlardan birini tanlang. Har bir test to'plami 20 ta dolzarb va qiziqarli savollardan tashkil topgan.</p>
+
+            <div class="category-grid">
+                <div class="category-card active" onclick="selectCategory('mix', this)">
+                    <div class="category-icon icon-mix">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3>Aralash 20 Test</h3>
+                    <p>Barcha fanlardan (IT, ingliz tili, mantiq va umumiy bilim) 20 ta savol</p>
+                </div>
+
+                <div class="category-card" onclick="selectCategory('it', this)">
+                    <div class="category-icon icon-it">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3>IT va Dasturlash</h3>
+                    <p>HTML, CSS, JS, Python va kompyuter texnologiyalari bo'yicha 20 ta savol</p>
+                </div>
+
+                <div class="category-card" onclick="selectCategory('english', this)">
+                    <div class="category-icon icon-eng">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h3>Ingliz Tili</h3>
+                    <p>Grammatika va so'z boyligi bo'yicha 20 ta test savoli</p>
+                </div>
+
+                <div class="category-card" onclick="selectCategory('logic', this)">
+                    <div class="category-icon icon-math">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Mantiq va Math</h3>
+                    <p>Mantiqiy fikrlash, ketma-ketlik va geometriya testlari</p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="padding: 0.9rem 2.5rem; font-size: 1.1rem; border-radius: 16px;" onclick="startQuiz()">
+                <i class="fa-solid fa-play"></i> Testni Boshlash (20 Savol)
+            </button>
+        </section>
+
+
+        <!-- STEP 2: Main Quiz Interface -->
+        <section class="quiz-workspace" id="quiz-screen">
+            <!-- Question Left Box -->
+            <div class="question-box">
+                <div>
+                    <div class="q-header">
+                        <div class="q-number-badge">
+                            <span id="category-name-badge">Aralash Test</span> • 
+                            <span id="current-q-index">Savol 1 / 20</span>
+                        </div>
+
+                        <div class="q-actions">
+                            <button class="icon-btn" id="bookmark-btn" onclick="toggleBookmark()" title="Savolni belgilab qo'yish">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <h2 class="q-text" id="question-text">Savol matni yuklanmoqda...</h2>
+
+                    <div class="options-grid" id="options-container">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <div class="q-footer">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="navigateQuestion(-1)">
+                        <i class="fa-solid fa-arrow-left"></i> Oldingi
+                    </button>
+
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button class="btn btn-secondary" onclick="clearAnswer()">
+                            <i class="fa-solid fa-eraser"></i> Tozalash
+                        </button>
+                        <button class="btn btn-primary" id="next-btn" onclick="navigateQuestion(1)">
+                            Keyingi <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Right Navigator -->
+            <div class="sidebar-card">
+                <div>
+                    <div class="sidebar-title">
+                        <span>Savollar Paneli</span>
+                        <span style="color: var(--primary-light); font-size: 0.9rem;" id="answered-count-lbl">0 / 20 belgilandi</span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" id="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="nav-grid" id="nav-pills-container">
+                    <!-- 20 pills generated here -->
+                </div>
+
+                <div class="legend-list">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: rgba(16, 185, 129, 0.8);"></div>
+                        <span>Javob berilgan</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: rgba(99, 102, 241, 0.8);"></div>
+                        <span>Hozirgi savol</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-amber);"></div>
+                        <span>Belgilab qo'yilgan (Bookmark)</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" style="width: 100%; justify-content: center; padding: 0.85rem;" onclick="confirmSubmit()">
+                    <i class="fa-solid fa-paper-plane"></i> Testni Yakunlash
+                </button>
+            </div>
+        </section>
+
+
+        <!-- STEP 3: Results Screen -->
+        <section class="results-container" id="results-screen">
+            <div class="result-summary-card">
+                <span class="welcome-badge" id="result-badge-status"><i class="fa-solid fa-trophy"></i> Natija E'lon Qilindi</span>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: white;" id="result-title">Ajoyib Natija!</h2>
+                <p style="color: var(--text-muted);" id="result-subtitle">Siz 20 ta test savolini muvaffaqiyatli yakunladingiz.</p>
+
+                <div class="score-circle">
+                    <span class="score-number" id="final-score-percent">85%</span>
+                    <span class="score-total" id="final-score-ratio">17 / 20 To'g'ri</span>
+                </div>
+
+                <div class="result-stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--accent-emerald);" id="stat-correct">17</div>
+                        <div class="stat-lbl">To'g'ri javoblar</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--accent-rose);" id="stat-wrong">3</div>
+                        <div class="stat-lbl">Xato javoblar</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--accent-cyan);" id="stat-time">04:45</div>
+                        <div class="stat-lbl">Sarflangan vaqt</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--accent-amber);" id="stat-grade">A+</div>
+                        <div class="stat-lbl">Baholash darajasi</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="restartQuiz()">
+                        <i class="fa-solid fa-rotate-right"></i> Qayta Topshirish
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fa-solid fa-print"></i> Chop Etish / Saqlash
+                    </button>
+                </div>
+            </div>
+
+            <!-- Answer Breakdown & Explanations -->
+            <div class="review-section">
+                <div class="review-header">
+                    <h3 style="font-size: 1.3rem; font-weight: 700;"><i class="fa-solid fa-list-check" style="color: var(--primary-light);"></i> Savollar Tahlili va Izohlar</h3>
+                    <div>
+                        <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="filterReview('all')">Barchasi</button>
+                        <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="filterReview('wrong')">Faqat Xatolar</button>
+                    </div>
+                </div>
+
+                <div id="review-list-container">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        /* -------------------------------------------------------------
+           TEST QUESTIONS BANK (20 QUESTIONS PER CATEGORY & MIXED SET)
+           ------------------------------------------------------------- */
+        const QUESTION_BANKS = {
+            mix: [
+                {
+                    q: "HTML qisqartmasining to'g'ri kengaytmasi qaysi?",
+                    options: ["HyperText Markup Language", "HighText Machine Language", "Hyperlink Textual Mark Language", "Home Tool Markup Language"],
+                    correct: 0,
+                    exp: "HTML - HyperText Markup Language bo'lib, veb-sahifalarning tuzilishini yaratish uchun ishlatiladigan belgilash tilidir."
+                },
+                {
+                    q: "O'zbekiston Respublikasining poytaxti qaysi shahar?",
+                    options: ["Samarqand", "Buxoro", "Toshkent", "Namangan"],
+                    correct: 2,
+                    exp: "Toshkent - O'zbekiston Respublikasining poytaxti va eng yirik shahridir."
+                },
+                {
+                    q: "Ingliz tilida: 'I ___ a student.' bo'sh joyga mos keladigan fe'lni tanlang.",
+                    options: ["is", "am", "are", "be"],
+                    correct: 1,
+                    exp: "'I' kishilik olmoshi bilan hozirgi zamonda 'am' to'liqsiz fe'li ishlatiladi."
+                },
+                {
+                    q: "Matematika: 15 + 5 * 2 amali natijasi nechaga teng?",
+                    options: ["40", "25", "30", "50"],
+                    correct: 1,
+                    exp: "Matematik qoidaga ko'ra birinchi ko'paytirish bajariladi: 5 * 2 = 10, so'ngra 15 + 10 = 25."
+                },
+                {
+                    q: "CSS tili veb-dasturlashda nima uchun javobgar?",
+                    options: ["Ma'lumotlar bazasini boshqarish", "Veb-sahifa ko'rinishi va dizayni (stili)", "Server mantig'ini yozish", "Fayllarni arxivlash"],
+                    correct: 1,
+                    exp: "CSS (Cascading Style Sheets) - veb-sahifa elementlarining stili, ranglari va joylashuvini bezash uchun xizmat qiladi."
+                },
+                {
+                    q: "Quyosh tizimidagi eng katta sayyora (planeta) qaysi?",
+                    options: ["Mars", "Venera", "Yupiter", "Saturn"],
+                    correct: 2,
+                    exp: "Yupiter - Quyosh tizimidagi eng ulkan va massiv gaz giganti sayyorasidir."
+                },
+                {
+                    q: "Ingliz tilida: 'Book' (kitob) so'zining ko'plik shakli qanday bo'ladi?",
+                    options: ["Bookes", "Books", "Bookies", "Booken"],
+                    correct: 1,
+                    exp: "Ko'pchilik otlarga ko'plik yasash uchun shunchaki '-s' qo'shimchasi qo'shiladi: Book -> Books."
+                },
+                {
+                    q: "JavaScript dasturlash tilida o'zgaruvchi e'lon qilish uchun qaysi kalit so'z ishlatiladi?",
+                    options: ["var / let / const", "make / set", "define / create", "dim / val"],
+                    correct: 0,
+                    exp: "JavaScript-da modern standart bo'yicha 'let', 'const' va ko'hna 'var' kalit so'zlari ishlatiladi."
+                },
+                {
+                    q: "Mantiqiy savol: Agar 5 ta mushuk 5 daqiqada 5 ta sichqonni tutsa, 100 ta mushuk 100 ta sichqonni necha daqiqada tutadi?",
+                    options: ["100 daqiqa", "50 daqiqa", "5 daqiqa", "1 daqiqa"],
+                    correct: 2,
+                    exp: "Har bir mushuk bitta sichqonni tutishi uchun 5 daqiqa ketadi. Shuning uchun 100 mushuk ham parallel ravishda 100 sichqonni 5 daqiqada tutadi."
+                },
+                {
+                    q: "Dunyodagi eng chuqur va eng chuchuk suvli ko'l qaysi?",
+                    options: ["Kaspiy dengizi", "Baykal ko'li", "Viktoriya ko'li", "Michigan ko'li"],
+                    correct: 1,
+                    exp: "Sibirda joylashgan Baykal ko'li dunyodagi eng chuqur (1642 m) ko'ldir."
+                },
+                {
+                    q: "HTML-da boshqa veb-sahifaga gipermurojaat (link) yaratish uchun qaysi teg ishlatiladi?",
+                    options: ["<link>", "<a>", "<url>", "<href>"],
+                    correct: 1,
+                    exp: "HTML-da <a> (anchor) tegi 'href' atributi bilan birga havola yaratish uchun ishlatiladi."
+                },
+                {
+                    q: "Ingliz tili: 'She ___ English very fluently.'",
+                    options: ["speak", "speaks", "speaking", "spoke"],
+                    correct: 1,
+                    exp: "Present Simple zamonida uchinchi shaxs birlik (She) fe'liga '-s' qo'shimchasi qo'shiladi."
+                },
+                {
+                    q: "Ketma-ketlikdagi mantiqiy keyingi sonni toping: 2, 4, 8, 16, ?",
+                    options: ["20", "24", "32", "64"],
+                    correct: 2,
+                    exp: "Har bir son 2 ga ko'paytirib borilmoqda: 16 * 2 = 32."
+                },
+                {
+                    q: "O'zbekiston Mustaqillikka erishgan yil va sana qaysi?",
+                    options: ["1989-yil 21-oktyabr", "1991-yil 1-sentyabr", "1992-yil 8-dekabr", "1990-yil 24-mart"],
+                    correct: 1,
+                    exp: "1991-yil 1-sentyabr - O'zbekiston Respublikasining Mustaqillik kuni hisoblanadi."
+                },
+                {
+                    q: "SQL (Structured Query Language) nima uchun ishlatiladi?",
+                    options: ["Veb-dizayn chizish", "Ma'lumotlar bazasi (Database) bilan ishlash", "Operatsion tizim yaratish", "Video montaj qilish"],
+                    correct: 1,
+                    exp: "SQL - relyatsiyali ma'lumotlar bazalaridan ma'lumotlarni saralash, qo'shish va boshqarish tili."
+                },
+                {
+                    q: "Ingliz tili: 'Yesterday, I ___ a very interesting movie.'",
+                    options: ["watch", "watched", "watching", "watches"],
+                    correct: 1,
+                    exp: "'Yesterday' (kecha) Past Simple o'tgan zamon ko'rsatkichi bo'lgani uchun 'watched' ishlatiladi."
+                },
+                {
+                    q: "Kvadratning tomoni 6 sm bo'lsa, uning yuzi (S) necha sm² bo'ladi?",
+                    options: ["12 sm²", "24 sm²", "36 sm²", "48 sm²"],
+                    correct: 2,
+                    exp: "Kvadrat yuzi formulasi: S = a² = 6 * 6 = 36 sm²."
+                },
+                {
+                    q: "Inson tanasidagi eng katta organ qaysi?",
+                    options: ["Jigar", "Yurak", "Miya", "Teri"],
+                    correct: 3,
+                    exp: "Inson tanasining maydoni va og'irligi bo'yicha eng katta organi bu - teri (skin) hisoblanadi."
+                },
+                {
+                    q: "Python dasturlash tilida ekranga matn chiqarish uchun qaysi funksiya ishlatiladi?",
+                    options: ["echo()", "console.log()", "print()", "System.out.println()"],
+                    correct: 2,
+                    exp: "Python-da ma'lumotni konsolga chiqarish uchun print() standart funksiyasi qo'llaniladi."
+                },
+                {
+                    q: "Ingliz tilida 'Fast' (tez) so'zining qarama-qarshi ma'nosi (antonimi) qaysi?",
+                    options: ["Quick", "Slow", "High", "Strong"],
+                    correct: 1,
+                    exp: "'Fast' (tez) so'zining antonimi 'Slow' (sekin) hisoblanadi."
+                }
+            ],
+            it: [
+                { q: "HTML5-da rasmlarni joylashtirish uchun qaysi teg ishlatiladi?", options: ["<picture>", "<img>", "<media>", "<src>"], correct: 1, exp: "<img> tegi 'src' atributi bilan rasmlarni ko'rsatish uchun xizmat qiladi." },
+                { q: "CSS-da element atrofidagi tashqi masofani belgilash uchun qaysi xossa ishlatiladi?", options: ["padding", "margin", "border", "spacing"], correct: 1, exp: "Margin - bu elementning tashqi chegarasigacha bo'lgan bo'shliq." },
+                { q: "JavaScript-da massiv (array) uzunligini aniqlash atributi qaysi?", options: [".count", ".size", ".length", ".total"], correct: 2, exp: "Array.length ob'ektdagi elementlar sonini qaytaradi." },
+                { q: "HTTP protokolidagi xavfsiz (shifrlangan) kengaytma qaysi?", options: ["HTTPX", "HTTPS", "S-HTTP", "FTP"], correct: 1, exp: "HTTPS (HyperText Transfer Protocol Secure) SSL/TLS shifrlashidan foydalanadi." },
+                { q: "Git tizimida o'zgarishlarni mahalliy repozitoriyga saqlash buyrug'i qaysi?", options: ["git push", "git save", "git commit", "git add"], correct: 2, exp: "git commit o'zgarishlarni snapshot sifatida lokal bazaga saqlaydi." },
+                { q: "Veb sahifaning strukturasini qaysi til belgilaydi?", options: ["CSS", "JavaScript", "HTML", "PHP"], correct: 2, exp: "HTML - sahifaning skeleti va strukturasi." },
+                { q: "Python-da izoh (comment) qaysi belgi bilan boshlanadi?", options: ["//", "/*", "#", "--"], correct: 2, exp: "Python-da bir qatorli izohlar '#' simvoli bilan yoziladi." },
+                { q: "DOM qisqartmasining ma'nosi nima?", options: ["Document Object Model", "Data Object Mode", "Digital Operations Management", "Desktop Oriented Model"], correct: 0, exp: "DOM - brauzerdagi HTML hujjat obyekt modeli." },
+                { q: "JSON ma'lumot formatining kengaytmasi nima?", options: ["Java Source Object Notation", "JavaScript Object Notation", "JS System Online Network", "Java Server Option"], correct: 1, exp: "JSON - JavaScript Object Notation eng ommabop ma'lumot almashish formati." },
+                { q: "CSS Flexbox-da elementlarni asosiy o'q bo'yicha o'rtaga tekislash qaysi xossa?", options: ["align-items: center", "justify-content: center", "text-align: center", "float: center"], correct: 1, exp: "justify-content asosiy o'q (main axis) bo mezonini belgilaydi." },
+                { q: "Brauzerda sahifani qayta yuklamasdan serverga so'rov yuborish texnologiyasi qaysi?", options: ["AJAX / Fetch API", "CSS Grid", "Bootstrap", "WebSockets"], correct: 0, exp: "AJAX va Fetch API asinxron ma'lumot olish imkonini beradi." },
+                { q: "Relatsion bo'lmagan (NoSQL) ma'lumotlar bazasiga misol qaysi?", options: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"], correct: 2, exp: "MongoDB - bu hujjatsimon NoSQL ma'lumotlar bazasi." },
+                { q: "C++ tilida standart kiritish-chiqarish kutubxonasi qaysi?", options: ["<stdio.h>", "<iostream>", "<conio.h>", "<stdlib.h>"], correct: 1, exp: "<iostream> C++ stram obyektlarini (cin, cout) o'z ichiga oladi." },
+                { q: "Linux operatsion tizimida joriy katalogni ko'rish buyrug'i qaysi?", options: ["dir", "ls", "pwd", "cd"], correct: 2, exp: "pwd (print working directory) joriy yo'lni ko'rsatadi." },
+                { q: "Frontend freymvorkiga misol qaysi?", options: ["React / Vue / Angular", "Django", "Laravel", "Spring Boot"], correct: 0, exp: "React, Vue va Angular mashhur frontend freymvorklaridir." },
+                { q: "Veb sahifada matn kiritish maydoni yaratish HTML tegi qaysi?", options: ["<input type='text'>", "<textfield>", "<write>", "<label>"], correct: 0, exp: "<input type='text'> matn kiritish oynasini hosil qiladi." },
+                { q: "CSS-da ID bo'yicha selektor qaysi belgi bilan yoziladi?", options: [". (nuqta)", "# (reshotka)", "* (yulduzcha)", "@ (et)"], correct: 1, exp: "ID selektori '#' belgisi bilan aniqlanadi (#myId)." },
+                { q: "JavaScript-da ikki qiymatning turi va qiymati tengligini qat'iy tekshirish operatori qaysi?", options: ["==", "=", "===", "!="], correct: 2, exp: "=== qat'iy tenglik operatori turini ham solishtiradi." },
+                { q: "API qisqartmasining ma'nosi nima?", options: ["Application Programming Interface", "Automated Program Integration", "Advanced Process Interaction", "Applied Performance Indicator"], correct: 0, exp: "API - ilovalar o'rtasida ma'lumot almashish interfeysi." },
+                { q: "Veb-serverga ma'lumot yuborish va yangi resurs yaratish HTTP metodi qaysi?", options: ["GET", "POST", "DELETE", "OPTIONS"], correct: 1, exp: "POST metodi yangi ma'lumot yuborish va saqlash uchun qo'llaniladi." }
+            ],
+            english: [
+                { q: "Choose the correct synonym for 'Happy':", options: ["Sad", "Joyful", "Angry", "Tired"], correct: 1, exp: "'Joyful' means feeling or expressing great happiness." },
+                { q: "Select the correct past simple form of 'Go':", options: ["Goed", "Gone", "Went", "Going"], correct: 2, exp: "The irregular past simple form of 'go' is 'went'." },
+                { q: "Fill in the blank: 'There ___ many books on the table.'", options: ["is", "are", "am", "be"], correct: 1, exp: "'Many books' is plural, so we use 'are'." },
+                { q: "Which word is a noun?", options: ["Quickly", "Beautiful", "Happiness", "Run"], correct: 2, exp: "'Happiness' is an abstract noun." },
+                { q: "Choose the correct comparative form: 'Fast -> ___'", options: ["Fastest", "More fast", "Faster", "Fastly"], correct: 2, exp: "Short adjectives add '-er' for comparative: Faster." },
+                { q: "What is the opposite of 'Difficult'?", options: ["Hard", "Easy", "Complex", "Tough"], correct: 1, exp: "The opposite of difficult is easy." },
+                { q: "Select the correct plural: 'Child -> ___'", options: ["Childs", "Children", "Childrens", "Childes"], correct: 1, exp: "'Child' has an irregular plural form: 'Children'." },
+                { q: "Complete sentence: 'He has been living here ___ 2018.'", options: ["for", "since", "in", "during"], correct: 1, exp: "We use 'since' for a specific starting point in time." },
+                { q: "Which article is used before vowel sounds? (e.g. apple)", options: ["a", "an", "the", "no article"], correct: 1, exp: "We use 'an' before words starting with a vowel sound (an apple)." },
+                { q: "Choose the correctly spelled word:", options: ["Recieve", "Receive", "Receve", "Rceive"], correct: 1, exp: "The correct spelling is 'Receive' (i before e except after c)." },
+                { q: "Identify the pronoun in: 'They visited the museum.'", options: ["They", "Visited", "Museum", "The"], correct: 0, exp: "'They' is a third-person plural personal pronoun." },
+                { q: "What does 'Look after' mean?", options: ["To search", "To take care of", "To watch behind", "To ignore"], correct: 1, exp: "Phrasal verb 'look after' means to care for someone or something." },
+                { q: "Choose the correct modal verb: 'You ___ wear a seatbelt while driving.'", options: ["must", "might", "could", "would"], correct: 0, exp: "'Must' expresses strong obligation or law." },
+                { q: "Fill in: 'If it rains tomorrow, we ___ stay at home.'", options: ["will", "would", "had", "did"], correct: 0, exp: "First Conditional: If + present simple, will + base verb." },
+                { q: "Select the adjective: 'The quiet girl read a book.'", options: ["girl", "read", "quiet", "book"], correct: 2, exp: "'Quiet' describes the noun 'girl'." },
+                { q: "What is the past participle of 'Write'?", options: ["Wrote", "Written", "Writing", "Writes"], correct: 1, exp: "Write (V1) - Wrote (V2) - Written (V3)." },
+                { q: "Choose the sentence with correct punctuation:", options: ["Where are you going.", "Where are you going?", "Where, are you going", "Where are you going!"], correct: 1, exp: "Questions must end with a question mark ('?')." },
+                { q: "Fill in: 'She is interested ___ learning computer programming.'", options: ["at", "on", "in", "about"], correct: 2, exp: "The correct preposition is 'interested in'." },
+                { q: "What is a 'Breeze'?", options: ["A heavy storm", "A gentle wind", "A hot day", "A snowfall"], correct: 1, exp: "A breeze is a light, gentle and pleasant wind." },
+                { q: "Complete: 'Listen! Someone ___ at the door.'", options: ["knocks", "is knocking", "knocked", "was knock"], correct: 1, exp: "'Listen!' signals an action happening right now (Present Continuous)." }
+            ],
+            logic: [
+                { q: "Ketma-ketlikni davom ettiring: 1, 4, 9, 16, 25, ?", options: ["30", "36", "40", "49"], correct: 1, exp: "Bu sonlar kvadratlaridir: 1², 2², 3², 4², 5², 6² = 36." },
+                { q: "Bir xonada 4 ta burchak bor. Har bir burchakda bittadan mushuk o'tiribdi. Har bir mushuk qarshisida 3 ta mushuk bor. Xonada nechta mushuk bor?", options: ["12 ta", "4 ta", "16 ta", "8 ta"], correct: 1, exp: "Xonada jami 4 ta mushuk bor, har bir burchakdagi mushuk qolgan 3 tasini ko'rib turadi." },
+                { q: "Doiraning radiusi 5 sm bo'lsa, uning diametri necha sm bo'ladi?", options: ["10 sm", "25 sm", "15 sm", "20 sm"], correct: 0, exp: "Diametr radiusning ikki baravariga teng: D = 2 * r = 10 sm." },
+                { q: "Agar kechadan oldingi kun seshanba bo'lsa, ertadan keyingi kun haftaning qaysi kuni bo'ladi?", options: ["Juma", "Shanba", "Yakshanba", "Dushanba"], correct: 2, exp: "Kechadan oldin seshanba -> Kecha chorshanba -> Bugun payshanba -> Ertaga juma -> Ertadan keyin shanba emas, balki: Kechadan oldin(Seshanba)->Kecha(Chorshanba)->Bugun(Payshanba)->Ertaga(Juma)->Ertadan keyin(Shanba)." },
+                { q: "Mantiqiy amallar: 3 + 3 = 6, 4 + 4 = 16, 5 + 5 = 25 bo'lsa, 6 + 6 = ?", options: ["36", "12", "42", "48"], correct: 0, exp: "Sonlar bir-biriga ko'paytirilmoqda: 6 * 6 = 36." },
+                { q: "To'g'ri to'rtburchakning bo'yi 8 sm, eni 5 sm. Uning perimetri (P) necha sm?", options: ["40 sm", "26 sm", "13 sm", "30 sm"], correct: 1, exp: "Perimetr formulasi: P = 2 * (a + b) = 2 * (8 + 5) = 26 sm." },
+                { q: "Otasi 36 yoshda, o'g'li 10 yoshda. Necha yildan keyin otaning yoshi o'g'lining yoshidan 3 baravar katta bo'ladi?", options: ["3 yildan", "5 yildan", "2 yildan", "4 yildan"], correct: 0, exp: "3 yildan keyin ota 39, o'g'il 13 yosh bo'ladi (39 = 13 * 3)." },
+                { q: "Uchburchakning ichki burchaklari yig'indisi necha gradusga teng?", options: ["90°", "180°", "360°", "270°"], correct: 1, exp: "Har qanday tekis uchburchak ichki burchaklar yig'indisi 180° bo'ladi." },
+                { q: "Ketma-ketlik: 100, 95, 85, 70, 50, ?", options: ["25", "30", "35", "20"], correct: 0, exp: "Ayirma ortib bormoqda: -5, -10, -15, -20, keyingisi -25: 50 - 25 = 25." },
+                { q: "Soat 3:00 da soat va daqiqa millari orasidagi burchak necha gradus bo'ladi?", options: ["45°", "60°", "90°", "120°"], correct: 2, exp: "Soat 3:00 da millar tik to'g'ri burchak (90°) hosil qiladi." },
+                { q: "Tarozining bir pallasida 2 kg lik tosh va yarimta tarvuz, ikkinchi pallasida butun bir tarvuz bor. Tarvuzning og'irligi qancha?", options: ["2 kg", "3 kg", "4 kg", "5 kg"], correct: 2, exp: "1 tarvuz = 0.5 tarvuz + 2 kg. Demak yarim tarvuz = 2 kg, butun tarvuz = 4 kg." },
+                { q: "50 ning 20 foizi (20%) nechaga teng?", options: ["5", "10", "15", "20"], correct: 1, exp: "50 * (20/100) = 10." },
+                { q: "Qaysi son qolganlaridan farq qiladi? (2, 3, 5, 7, 9, 11)", options: ["3", "7", "9", "11"], correct: 2, exp: "9 murakkab son (3*3), qolgan barcha sonlar esa tub sonlardir." },
+                { q: "Kitobning betlari 1 dan 100 gacha raqamlandi. Raqamlashda '5' raqami necha marta ishlatildi?", options: ["10 marta", "19 marta", "20 marta", "15 marta"], correct: 2, exp: "5,15,25,35,45,55(2ta),65,75,85,95 (11 marta Birlikda) + 50,51,52,53,54,56,57,58,59 (9 marta O'nlikda) = 20 marta." },
+                { q: "Basketbol musobaqasida 4 ta jamoa bir-biri bilan 1 martadan o'ynaydi. Jami nechta o'yin o'tkaziladi?", options: ["4 ta", "6 ta", "8 ta", "12 ta"], correct: 1, exp: "Kombinatorika formulasi: C(4,2) = (4 * 3) / 2 = 6 ta o'yin." },
+                { q: "P poyezd tunnelga 60 km/soat tezlikda kirmoqda. Tunnel uzunligi 1 km, poyezd 1 km. Poyezd tunneldan to'liq o'tishi uchun qancha masofa bosishi kerak?", options: ["1 km", "1.5 km", "2 km", "2.5 km"], correct: 2, exp: "Poyezd to'liq chiqishi uchun o'z uzunligi + tunnel uzunligini bosishi shart: 1 + 1 = 2 km." },
+                { q: "Aka va ukaning birgalikdagi puli 110.000 so'm. Akaning puli ukanikidan 100.000 so'mga ko'p. Ukaning puli qancha?", options: ["10.000 so'm", "5.000 so'm", "15.000 so'm", "50.000 so'm"], correct: 1, exp: "Uka = x, Aka = x + 100.000. x + x + 100.000 = 110.000 => 2x = 10.000 => x = 5.000 so'm." },
+                { q: "Sonning 1/3 qismi 15 ga teng bo'lsa, shu sonning o'zi nechaga teng?", options: ["30", "45", "60", "75"], correct: 1, exp: "x / 3 = 15 => x = 15 * 3 = 45." },
+                { q: "Shaxmat taxtasida nechta katak bor?", options: ["64 ta", "32 ta", "81 ta", "100 ta"], correct: 0, exp: "Shaxmat taxtasi 8x8 o'lchamli bo'lib, 64 ta kvadrat katakdan iborat." },
+                { q: "Mantiqiy operator: 'ROST' AND 'YOLG'ON' amali natijasi nima bo mezon bo'ladi?", options: ["ROST", "YOLG'ON", "NOMA'LUM", "XATOLIK"], correct: 1, exp: "AND (Mantiqiy VA) amali to'g'ri bo'lishi uchun ikkala tomon ham ROST bo'lishi shart." }
+            ]
+        };
+
+        /* -------------------------------------------------------------
+           APP STATE MANAGEMENT
+           ------------------------------------------------------------- */
+        let currentCategory = 'mix';
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(20).fill(null);
+        let bookmarked = new Array(20).fill(false);
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        let isSoundEnabled = true;
+
+        /* Web Audio API Sound Synthesizer (Zero External Dependencies) */
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playSound(type) {
+            if (!isSoundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'select') {
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(300, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'finish') {
+                    // Celebration Fanfare Notes
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        const noteOsc = audioCtx.createOscillator();
+                        const noteGain = audioCtx.createGain();
+                        noteOsc.connect(noteGain);
+                        noteGain.connect(audioCtx.destination);
+                        noteOsc.frequency.setValueAtTime(freq, now + idx * 0.1);
+                        noteGain.gain.setValueAtTime(0.2, now + idx * 0.1);
+                        noteGain.gain.linearRampToValueAtTime(0.01, now + idx * 0.1 + 0.25);
+                        noteOsc.start(now + idx * 0.1);
+                        noteOsc.stop(now + idx * 0.1 + 0.25);
+                    });
+                }
+            } catch(e) {
+                console.log("Audio not allowed yet", e);
+            }
+        }
+
+        // Toggle Sound Mute
+        document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+            isSoundEnabled = !isSoundEnabled;
+            const icon = document.getElementById('sound-icon');
+            if (isSoundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+                playSound('click');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+            }
+        });
+
+        /* Category Selection logic */
+        function selectCategory(catKey, cardEl) {
+            currentCategory = catKey;
+            document.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
+            cardEl.classList.add('active');
+            playSound('select');
+        }
+
+        /* Start Quiz Initialization */
+        function startQuiz() {
+            playSound('select');
+            quizQuestions = [...QUESTION_BANKS[currentCategory]];
+            currentQuestionIndex = 0;
+            userAnswers = new Array(20).fill(null);
+            bookmarked = new Array(20).fill(false);
+            secondsElapsed = 0;
+
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('results-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'grid';
+            document.getElementById('timer-box').style.display = 'flex';
+
+            // Category title badge
+            const catTitles = {
+                mix: "Aralash Test",
+                it: "IT va Dasturlash",
+                english: "Ingliz Tili",
+                logic: "Mantiq & Math"
+            };
+            document.getElementById('category-name-badge').textContent = catTitles[currentCategory];
+
+            // Start Timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                updateTimerDisplay();
+            }, 1000);
+            updateTimerDisplay();
+
+            renderNavigatorGrid();
+            loadQuestion(0);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(secondsElapsed / 60);
+            const secs = secondsElapsed % 60;
+            document.getElementById('timer-display').textContent = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        /* Load & Render Question */
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const qData = quizQuestions[index];
+
+            document.getElementById('current-q-index').textContent = `Savol ${index + 1} / 20`;
+            document.getElementById('question-text').textContent = `${index + 1}. ${qData.q}`;
+
+            // Bookmark button state
+            const bmBtn = document.getElementById('bookmark-btn');
+            if (bookmarked[index]) {
+                bmBtn.classList.add('active');
+                bmBtn.querySelector('i').className = 'fa-solid fa-bookmark';
+            } else {
+                bmBtn.classList.remove('active');
+                bmBtn.querySelector('i').className = 'fa-regular fa-bookmark';
+            }
+
+            // Options Grid
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            qData.options.forEach((optText, optIdx) => {
+                const optCard = document.createElement('div');
+                optCard.className = `option-card ${userAnswers[index] === optIdx ? 'selected' : ''}`;
+                optCard.onclick = () => selectAnswer(optIdx);
+
+                optCard.innerHTML = `
+                    <div class="option-prefix">${prefixes[optIdx]}</div>
+                    <div class="option-label">${optText}</div>
+                `;
+                optionsContainer.appendChild(optCard);
+            });
+
+            // Prev / Next button state
+            document.getElementById('prev-btn').style.visibility = index === 0 ? 'hidden' : 'visible';
+            const nextBtn = document.getElementById('next-btn');
+            if (index === 19) {
+                nextBtn.innerHTML = `Yakunlash <i class="fa-solid fa-check"></i>`;
+                nextBtn.className = 'btn btn-success';
+            } else {
+                nextBtn.innerHTML = `Keyingi <i class="fa-solid fa-arrow-right"></i>`;
+                nextBtn.className = 'btn btn-primary';
+            }
+
+            updateNavPills();
+            updateProgress();
+        }
+
+        /* Select Answer option */
+        function selectAnswer(optionIdx) {
+            playSound('select');
+            userAnswers[currentQuestionIndex] = optionIdx;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function clearAnswer() {
+            playSound('click');
+            userAnswers[currentQuestionIndex] = null;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function toggleBookmark() {
+            playSound('click');
+            bookmarked[currentQuestionIndex] = !bookmarked[currentQuestionIndex];
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function navigateQuestion(direction) {
+            playSound('click');
+            const target = currentQuestionIndex + direction;
+            if (target >= 0 && target < 20) {
+                loadQuestion(target);
+            } else if (target === 20) {
+                confirmSubmit();
+            }
+        }
+
+        /* Navigator Grid Sidebar */
+        function renderNavigatorGrid() {
+            const gridContainer = document.getElementById('nav-pills-container');
+            gridContainer.innerHTML = '';
+
+            for (let i = 0; i < 20; i++) {
+                const pill = document.createElement('div');
+                pill.className = 'nav-pill';
+                pill.id = `nav-pill-${i}`;
+                pill.textContent = i + 1;
+                pill.onclick = () => {
+                    playSound('click');
+                    loadQuestion(i);
+                };
+                gridContainer.appendChild(pill);
+            }
+        }
+
+        function updateNavPills() {
+            let answeredCount = 0;
+
+            for (let i = 0; i < 20; i++) {
+                const pill = document.getElementById(`nav-pill-${i}`);
+                if (!pill) continue;
+
+                pill.className = 'nav-pill';
+                if (i === currentQuestionIndex) pill.classList.add('active');
+                if (userAnswers[i] !== null) {
+                    pill.classList.add('answered');
+                    answeredCount++;
+                }
+                if (bookmarked[i]) pill.classList.add('bookmarked');
+            }
+
+            document.getElementById('answered-count-lbl').textContent = `${answeredCount} / 20 belgilandi`;
+        }
+
+        function updateProgress() {
+            const answered = userAnswers.filter(a => a !== null).length;
+            const pct = (answered / 20) * 100;
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        /* Confirm & Submit Test */
+        function confirmSubmit() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                if (!confirm(`Diqqat! Siz hali ${unanswered} ta savolga javob bermadingiz. Baribir testni yakunlamoqchimisiz?`)) {
+                    return;
+                }
+            }
+            finishQuiz();
+        }
+
+        /* Finish Quiz & Compute Results */
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            playSound('finish');
+
+            let correctCount = 0;
+            quizQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const wrongCount = 20 - correctCount;
+            const percent = Math.round((correctCount / 20) * 100);
+
+            // Grade evaluation
+            let grade = 'F';
+            let title = "O'rganishda Davom Eting!";
+            if (percent >= 90) { grade = 'A+'; title = "Ajoyib va Mukammal!"; launchConfetti(); }
+            else if (percent >= 80) { grade = 'A'; title = "Juda Yaxshi Natija!"; launchConfetti(); }
+            else if (percent >= 70) { grade = 'B'; title = "Yaxshi Natija!"; }
+            else if (percent >= 50) { grade = 'C'; title = "Qoniqarli!"; }
+
+            // UI updates
+            document.getElementById('final-score-percent').textContent = `${percent}%`;
+            document.getElementById('final-score-ratio').textContent = `${correctCount} / 20 To'g'ri`;
+            document.getElementById('stat-correct').textContent = correctCount;
+            document.getElementById('stat-wrong').textContent = wrongCount;
+            document.getElementById('stat-grade').textContent = grade;
+            document.getElementById('result-title').textContent = title;
+
+            const mins = Math.floor(secondsElapsed / 60);
+            const secs = secondsElapsed % 60;
+            document.getElementById('stat-time').textContent = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            // Render review list
+            renderReviewList('all');
+
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('timer-box').style.display = 'none';
+            document.getElementById('results-screen').style.display = 'block';
+        }
+
+        /* Render Detailed Question Explanations */
+        function renderReviewList(filter) {
+            const container = document.getElementById('review-list-container');
+            container.innerHTML = '';
+
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            quizQuestions.forEach((q, idx) => {
+                const isCorrect = userAnswers[idx] === q.correct;
+
+                if (filter === 'wrong' && isCorrect) return;
+
+                const userOpt = userAnswers[idx] !== null ? `${prefixes[userAnswers[idx]]}) ${q.options[userAnswers[idx]]}` : "Javob berilmadi";
+                const correctOpt = `${prefixes[q.correct]}) ${q.options[q.correct]}`;
+
+                const item = document.createElement('div');
+                item.className = `review-item ${isCorrect ? 'correct' : 'wrong'}`;
+
+                item.innerHTML = `
+                    <div class="review-q-title">
+                        ${idx + 1}. ${q.q}
+                        ${isCorrect ? '<span style="color:var(--accent-emerald); font-size:0.85rem; margin-left:0.5rem;"><i class="fa-solid fa-circle-check"></i> To\'g\'ri</span>' 
+                                   : '<span style="color:var(--accent-rose); font-size:0.85rem; margin-left:0.5rem;"><i class="fa-solid fa-circle-xmark"></i> Noto\'g\'ri</span>'}
+                    </div>
+                    <div class="review-answers">
+                        <div>
+                            <span style="color:var(--text-muted);">Sizning javobingiz:</span><br>
+                            <div class="ans-badge ${isCorrect ? 'ans-correct' : 'ans-user-wrong'}" style="margin-top:0.3rem;">
+                                ${userOpt}
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color:var(--text-muted);">To'g'ri javob:</span><br>
+                            <div class="ans-badge ans-correct" style="margin-top:0.3rem;">
+                                ${correctOpt}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanation-text">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Izoh:</strong> ${q.exp}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function filterReview(type) {
+            playSound('click');
+            renderReviewList(type);
+        }
+
+        function restartQuiz() {
+            playSound('select');
+            document.getElementById('results-screen').style.display = 'none';
+            document.getElementById('welcome-screen').style.display = 'block';
+        }
+
+        /* Canvas Confetti Animation */
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e'];
+
+            for (let i = 0; i < 120; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vy: Math.random() * 3 + 2,
+                    vx: Math.random() * 2 - 1,
+                    rotation: Math.random() * 360,
+                    rotSpeed: Math.random() * 6 - 3
+                });
+            }
+
+            let animationFrame;
+            let startTime = Date.now();
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.y += p.vy;
+                    p.x += p.vx;
+                    p.rotation += p.rotSpeed;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                if (Date.now() - startTime < 4000) {
+                    animationFrame = requestAnimationFrame(render);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            render();
+        }
+    </script>
+</body>
+</html>
